@@ -1,14 +1,14 @@
-class MenuView:
-    def showMenu(self, allData):
-        for entry in allData:
-            menuObj = entry["menu"]
-            print(f"\n{'='*12} {menuObj.menuName.upper()} {'='*12}")
-            for section in entry["content"]:
-                courseObj = section["course"]
-                mealList = section["meals"]
-                print(f"\n  >> {courseObj.courseName}")
-                for meal in mealList:
-                    print(f"     * {meal.mealName:<18} ${meal.mealPrice:6.2f}")
+from subsystems.menuSystem.menuService import MenuService
+from subsystems.menuSystem.views.menuView import MenuView
 
-    def displayMsg(self, msg):
-        print(f"\n[System]: {msg}")
+class MenuController:
+    def __init__(self):
+        self.service = MenuService()
+        self.view = MenuView()
+
+    def displayMenu(self):
+        data = self.service.getFullMenuData()
+        if not data:
+            self.view.displayMsg("No menu data found.")
+        else:
+            self.view.showMenu(data)

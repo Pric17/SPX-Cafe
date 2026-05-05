@@ -1,33 +1,14 @@
-from subsystems.menuSystem.models.courseModel import Course
-
 class Meal:
-    def __init__(self, mealId=None, mealName=None, course:Course=None):
+    def __init__(self, mealId=None, mealName=None, mealPrice=0.0, course=None):
         self._mealId = mealId
         self._mealName = mealName
-        self._course = course
+        self._mealPrice = mealPrice
+        self._course = course # Reference to Course object
 
     @property
-    def mealId(self):
-        return self._mealId
-    
-    @mealId.setter
-    def mealId(self, value):
-        self._mealId = value
-
+    def mealId(self): return self._mealId
     @property
-    def mealName(self):
-        return self._mealName
-    
-    @mealName
-    def mealName(self, value):
-        self._mealName = value
-    
+    def mealName(self): return self._mealName
     @property
-    def course(self) -> Course:
-        return self._course
-    
-    @course.setter
-    def course(self, value: Course):
-        self._course = value
-
+    def mealPrice(self): return self._mealPrice
     
