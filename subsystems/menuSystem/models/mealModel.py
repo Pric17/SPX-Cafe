@@ -1,4 +1,4 @@
-from subsystems.models.courseModel import Course
+from subsystems.menuSystem.models.courseModel import Course
 
 class Meal:
     def __init__(self, mealId=None, mealName=None, course:Course=None):
