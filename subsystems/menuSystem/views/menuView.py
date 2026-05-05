@@ -12,3 +12,5 @@ class MenuView:
 
     def displayMsg(self, msg):
         print(f"\n[System]: {msg}")
+
+    
