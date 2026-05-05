@@ -1,4 +1,4 @@
-from model.course import Course
+from subsystems.models.courseModel import Course
 
 class Meal:
     def __init__(self, mealId=None, mealName=None, course:Course=None):
@@ -29,3 +29,5 @@ class Meal:
     @course.setter
     def course(self, value: Course):
         self._course = value
+
+    

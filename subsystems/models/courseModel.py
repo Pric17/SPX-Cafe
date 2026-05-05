@@ -1,4 +1,4 @@
-from model.menu import Menu
+from subsystems.models.menuModel import Menu
 
 class Course:
     '''
