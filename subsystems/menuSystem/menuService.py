@@ -9,9 +9,22 @@ class MenuService:
         self.courseRepo = CourseRepository()
         self.mealRepo = MealRepository()
 
+    def getMenuData(self, menu):
+        fullStructure = []
+
+        if menu:
+            courseData = []
+            courses = self.courseRepo.getCoursesByMenu(menu)
+            for c in courses:
+                meals = self.mealRepo.getMealsByCourse(c)
+                courseData.append({"course": c, "meals": meals})
+            fullStructure.append({"menu": menu, "content": courseData})
+        return fullStructure
+
     def getFullMenuData(self):
         fullStructure = []
         menus = self.menuRepo.getAllMenus()
+
         for m in menus:
             courseData = []
             courses = self.courseRepo.getCoursesByMenu(m)
@@ -20,3 +33,4 @@ class MenuService:
                 courseData.append({"course": c, "meals": meals})
             fullStructure.append({"menu": m, "content": courseData})
         return fullStructure
+    

@@ -6,9 +6,20 @@ class MenuController:
         self.service = MenuService()
         self.view = MenuView()
 
-    def displayMenu(self):
-        data = self.service.getFullMenuData()
+    def displayMenu(self, menu):
+        data = self.service.getMenuData(menu)
         if not data:
-            self.view.displayMsg("No menu data found.")
+            self.view.displayMsg("The menu is currently empty.")
         else:
             self.view.showMenu(data)
+
+
+
+
+    def displayAllMenus(self):
+        data = self.service.getFullMenuData()
+        if not data:
+            self.view.displayMsg("The menu is currently empty.")
+        else:
+            self.view.showAllMenus(data)
+            
