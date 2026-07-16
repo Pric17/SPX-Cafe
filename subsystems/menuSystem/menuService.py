@@ -13,6 +13,12 @@ class MenuService:
     def getMenuList(self):
         return self.menuRepo.getAllMenus()
 
+    def getCourses(self, menu):
+        return self.courseRepo.getCoursesByMenu(menu)
+
+    def getMeals(self, course):
+        return self.mealRepo.getMealsByCourse(course)
+
 
     def getMenuData(self, menu: Menu=None) -> list:
         fullStructure = []

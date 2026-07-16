@@ -70,23 +70,35 @@ class OrderOptions(Options):
 
     options  = {
         # Options, prompt, synonyms, Message, State
-        "menu": {
-            "prompt"    : "View the Menu" # display
-            , "syn"       : {"course", "food", "menu"} # input synonyms
-            , "message" : "Thank you for choosing to see the Menu" 
-            ,"state"    : 51
-        }
-        , "finish": {
-            "prompt"    : "Finish Orders" # display
-            ,"syn"       : {"finish", "end", "complete"} # input synonyms
-            , "message" : "You wish to finish your order"
-            ,"state"    : 52
-        }
-        , "order": {
+        "order": {
             "prompt"    : "Add a Meal" # display
             ,"syn"       : {"order", "add", "buy", "meal"} # input synonyms
             , "message" : "You wish to add a meal to your order"
             ,"state"    : 53
+        }
+        , "menu": {
+            "prompt"    : "View the Menu" # display
+            , "syn"       : {"course", "food", "menu"} # input synonyms
+            , "message" : "Thank you for choosing to see the Menu"
+            ,"state"    : 51
+        }
+        , "basket": {
+            "prompt"    : "View Basket" # display
+            ,"syn"       : {"basket", "cart", "view"} # input synonyms
+            , "message" : "" # state prints the basket
+            ,"state"    : 54
+        }
+        , "finish": {
+            "prompt"    : "Finish Order" # display
+            ,"syn"       : {"finish", "end", "complete", "checkout"} # input synonyms
+            , "message" : "" # state handles checkout messaging
+            ,"state"    : 52
+        }
+        , "abandon": {
+            "prompt"    : "Abandon Order" # display
+            ,"syn"       : {"abandon", "cancel", "quit", "leave"} # input synonyms
+            , "message" : "" # state confirms abandonment
+            ,"state"    : 55
         }
     }
         

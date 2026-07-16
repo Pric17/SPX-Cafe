@@ -1,6 +1,7 @@
 from subsystems.menuSystem.menuFacade import MenuFacade
 from subsystems.customerSystem.customerFacade import CustomerFacade
-from core.utilities.options import MainOptions
+from core.utilities.options import MainOptions, OrderOptions
+from core.utilities.choice import Choice
 
 class Cafe:
     def __init__(self, name):
@@ -67,9 +68,77 @@ class Cafe:
                     print("(Order history is not available yet.)")
                     self.__state = 2
 
-                case 5: # Order food (to be built in a later step)
-                    print("(Ordering is not available yet.)")
-                    self.__state = 2
+                case 5: # Start a new order
+                    self.customerSystem.startOrder(self.customer.username)
+                    print("\nLet's build your order. You'll need at least 3 different dishes.")
+                    self.__state = 50
+
+                case 50: # Ordering menu loop
+                    ans = input(f"\nOrdering - what next? ({OrderOptions.getPrompts()}): ")
+                    (option, message, state) = OrderOptions.checkChoice(ans)
+                    if state:
+                        if message:
+                            print(message)
+                        self.__state = state
+                    else:
+                        print("Sorry, I didn't understand that. Please try again.")
+
+                case 51: # View the menu while ordering
+                    self.menuSystem.showMenuList()
+                    menuRequest = input("Enter which menu to show or blank for all? ")
+                    menu = self.menuSystem.findMenu(menuRequest)
+                    self.menuSystem.showMenu(menu)
+                    self.__state = 50
+
+                case 52: # Finish / checkout
+                    if not self.customerSystem.canCheckout():
+                        self.customerSystem.needMoreDishes()
+                        self.__state = 50
+                    else:
+                        self.customerSystem.showSummary()
+                        confirm = input("\nConfirm and place this order? (yes/no): ")
+                        if Choice.match(confirm, "yes"):
+                            self.customerSystem.saveOrder()
+                            self.__state = 2
+                        else:
+                            print("Okay, your order is still open.")
+                            self.__state = 50
+
+                case 53: # Add a meal (navigate menu -> course -> dish)
+                    self.menuSystem.showMenuList()
+                    menu = self.menuSystem.findMenu(input("Which menu? "))
+                    if not menu:
+                        print("Sorry, I couldn't find that menu.")
+                        self.__state = 50
+                    else:
+                        self.menuSystem.showCourses(menu)
+                        course = self.menuSystem.findCourse(menu, input("Which course? "))
+                        if not course:
+                            print("Sorry, I couldn't find that course.")
+                            self.__state = 50
+                        else:
+                            self.menuSystem.showMeals(course)
+                            meal = self.menuSystem.findMeal(course, input("Which dish? "))
+                            if not meal:
+                                print("Sorry, I couldn't find that dish.")
+                                self.__state = 50
+                            else:
+                                quantity = self.__askQuantity()
+                                self.customerSystem.addMeal(meal, quantity)
+                                self.__state = 50
+
+                case 54: # View basket
+                    self.customerSystem.showBasket()
+                    self.__state = 50
+
+                case 55: # Abandon order
+                    confirm = input("\nAre you sure you want to abandon this order? (yes/no): ")
+                    if Choice.match(confirm, "yes"):
+                        self.customerSystem.abandonOrder()
+                        print("Your order has been abandoned.")
+                        self.__state = 2
+                    else:
+                        self.__state = 50
 
                 case 9: # Exit
                     if self.customer: # thank the customer by name (assessment requirement)
@@ -85,3 +154,11 @@ class Cafe:
             if answer:
                 return answer
             print("That can't be blank. Please try again.")
+
+    def __askQuantity(self):
+        # Keep asking until we get a positive whole number of servings
+        while True:
+            answer = input("How many servings? ").strip()
+            if answer.isdigit() and int(answer) > 0:
+                return int(answer)
+            print("Please enter a whole number greater than 0.")

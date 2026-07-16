@@ -23,6 +23,16 @@ class MenuView:
                         print(f" * {meal.mealName:<18} ${meal.mealPrice:6.2f}")
 
 
+    def showCourseList(self, courses):
+        print("\nCourses available:")
+        for course in courses:
+            print(f"  >> {course.courseName}")
+
+    def showMealList(self, meals):
+        print("\nDishes available:")
+        for meal in meals:
+            print(f" * {meal.mealName:<18} ${meal.mealPrice:6.2f}")
+
     def displayMsg(self, msg):
         print(f"\n[System]: {msg}")
 
