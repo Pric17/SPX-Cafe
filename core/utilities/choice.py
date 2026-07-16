@@ -35,7 +35,14 @@ class Choice:
             choice = match
 
         return choice
-
+    
+    @staticmethod
+    def match(word1, word2) -> bool:
+        '''
+        Compares 2 words and if within level of confidence they match returns TRUE, else  return FALSE
+        '''
+        return fuzz.ratio(word1, word2, processor=default_process) > Choice.getConfidenceLevel()
+    
     @staticmethod
     def getChoices(request=None, options=None):
         ''' This returns multiple values that match your request'''
@@ -49,7 +56,8 @@ class Choice:
                 choices.append(match)
 
         return choices
-
+    
+   
     @staticmethod
     def getConfidenceLevel():
         return Choice.__confidenceLevel

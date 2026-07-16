@@ -2,8 +2,8 @@ from subsystems.menuSystem.menuFacade import MenuFacade
 from core.utilities.choice import Choice
 
 class Cafe:
-    def __init__(self, cafeName):
-        self.name = cafeName
+    def __init__(self, name):
+        self.name = name
         self.menuSystem = MenuFacade()
         self.__state = 1
         self.__menuOptions = ["View Menu", "Exit"]
@@ -12,7 +12,7 @@ class Cafe:
         while True:
             match self.__state:
                 case 1: # Get customer
-                    print(f"Welcome to {self.cafeName}!")
+                    print(f"Welcome to {self.name}!")
                     self.__state = 2
                 case 2: # main menu
                     ans = input(f"Choose a Menu Option:[{', '.join(self.__menuOptions)}]: "). lower()
