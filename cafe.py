@@ -15,28 +15,28 @@ class Cafe:
             match self.__state:
                 case 1: # Identify customer (login is mandatory before the main menu)
                     print(f"Welcome to {self.name}!")
-                    username = input("Please enter your username: ")
+                    username = self.__askNonBlank("Please enter your username: ")
                     customer = self.customerSystem.findCustomer(username)
 
                     if customer: # existing customer -> ask for password
                         while True:
                             password = input("Please enter your password: ")
+                            # Allow giving up on login before checking the password
+                            if password.lower() in ("exit", "quit", "leave"):
+                                self.__state = 9
+                                break
                             if self.customerSystem.verifyPassword(customer, password):
                                 self.customer = customer
                                 self.customerSystem.welcomeBack(customer)
                                 self.__state = 2
                                 break
-                            # Allow giving up on login before re-prompting
-                            if password.lower() in ("exit", "quit", "leave"):
-                                self.__state = 9
-                                break
                             # Wrong password: tell them and re-ask
                             self.customerSystem.wrongPassword()
                     else: # new customer -> register them
                         self.customerSystem.askNewCustomer(username)
-                        password = input("Choose a password: ")
-                        firstName = input("Enter your first name: ")
-                        lastName = input("Enter your last name: ")
+                        password = self.__askNonBlank("Choose a password: ")
+                        firstName = self.__askNonBlank("Enter your first name: ")
+                        lastName = self.__askNonBlank("Enter your last name: ")
                         self.customer = self.customerSystem.register(username, password, firstName, lastName)
                         self.customerSystem.welcomeNew(self.customer)
                         self.__state = 2
@@ -77,3 +77,11 @@ class Cafe:
                     else:
                         print("Thank you for using Babciabot, see you next time!")
                     break
+
+    def __askNonBlank(self, prompt):
+        # Keep asking until the user types something that isn't blank/whitespace
+        while True:
+            answer = input(prompt).strip()
+            if answer:
+                return answer
+            print("That can't be blank. Please try again.")
