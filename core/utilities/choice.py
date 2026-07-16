@@ -28,8 +28,6 @@ class Choice:
         ''' Check of "Choice" is in one of the "Options'''
         result = process.extractOne(request, options, scorer=fuzz.WRatio, processor=default_process)
         (match, confidence, index) = result
-        # return [choice, confidence, index]
-        print(request, result)
 
         if confidence > Choice.getConfidenceLevel():
             choice = match

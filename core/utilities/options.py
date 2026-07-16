@@ -58,7 +58,7 @@ class MainOptions(Options):
         , "exit": {
             "prompt"    : "Exit System" # display
             ,"syn"       : {"goodbye", "exit", "logout", "leave", "finish"}, # input synonyms
-            "message": "Thank you for using Italiabot, see you next time"
+            "message": "" # state 9 handles the farewell (so it can thank the customer by name)
             ,"state":  9
         }
     }
