@@ -17,7 +17,6 @@ class CustomerController:
         customer = self.service.registerCustomer(username, password, firstName, lastName)
         return customer
 
-    # View helpers (the controller decides what the view shows)
     def welcomeBack(self, customer):
         self.view.welcomeBack(customer)
 

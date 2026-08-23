@@ -2,14 +2,13 @@ from datetime import datetime
 from subsystems.customerSystem.repositories.orderRepository import OrderRepository
 from subsystems.customerSystem.models.orderModel import Order
 
-# Minimum number of different dishes required before an order can be checked out
 MIN_DISTINCT_DISHES = 3
 
 class OrderService:
 
     def __init__(self):
         self.orderRepo = OrderRepository()
-        self.currentOrder = None  # the basket being built this session
+        self.currentOrder = None
 
     def startOrder(self, username):
         self.currentOrder = Order(username)
@@ -30,7 +29,6 @@ class OrderService:
         return self.currentOrder.distinctCount >= MIN_DISTINCT_DISHES
 
     def saveCurrentOrder(self):
-        # Stamp the date, persist, and record the generated orderId on the model
         orderDate = datetime.now().strftime("%Y-%m-%d")
         self.currentOrder.setSaved(None, orderDate)
         orderId = self.orderRepo.saveOrder(self.currentOrder)
@@ -39,3 +37,12 @@ class OrderService:
 
     def abandonOrder(self):
         self.currentOrder = None
+
+    def getOrderHistory(self, username):
+        history = []
+        for (orderId, orderDate, total) in self.orderRepo.getOrdersByCustomer(username):
+            items = []
+            for (mealName, quantity, priceAtTime) in self.orderRepo.getOrderItems(orderId):
+                items.append({"mealName": mealName, "quantity": quantity, "priceAtTime": priceAtTime})
+            history.append({"orderId": orderId, "orderDate": orderDate, "total": total, "items": items})
+        return history

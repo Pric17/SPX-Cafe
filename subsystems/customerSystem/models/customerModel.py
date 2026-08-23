@@ -14,6 +14,5 @@ class Customer:
     @property
     def lastName(self): return self._lastName
 
-    # Convenience getter for greetings (e.g. "Welcome back, John Smith")
     @property
     def fullName(self): return f"{self._firstName} {self._lastName}"

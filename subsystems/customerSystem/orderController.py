@@ -33,3 +33,7 @@ class OrderController:
 
     def abandonOrder(self):
         self.service.abandonOrder()
+
+    def showHistory(self, username):
+        history = self.service.getOrderHistory(username)
+        self.view.showHistory(history)

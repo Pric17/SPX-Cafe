@@ -18,8 +18,6 @@ class Database:
 
     @staticmethod
     def dbSet(sql, params=()):
-        # Runs a write (INSERT/UPDATE/DELETE) and returns the new row id (lastrowid).
-        # Needed for inserts where we must know the auto-generated id (e.g. a new orderId).
         baseDir = os.path.dirname(os.path.abspath(__file__))
         dbPath = os.path.join(baseDir, "..", "database", "SPXCafeDB.db")
 

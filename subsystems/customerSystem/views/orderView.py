@@ -24,5 +24,17 @@ class OrderView:
     def mealAdded(self, meal, quantity):
         print(f"\nAdded {quantity} x {meal.mealName} to your order.")
 
+    def showHistory(self, history):
+        if not history:
+            print("\nYou have no previous orders yet.")
+            return
+        print("\n========== YOUR ORDER HISTORY ==========")
+        for order in history:
+            print(f"\nOrder #{order['orderId']}  -  {order['orderDate']}")
+            for item in order["items"]:
+                subtotal = item["quantity"] * item["priceAtTime"]
+                print(f" * {item['mealName']:<18} x{item['quantity']:<3} @ ${item['priceAtTime']:6.2f} = ${subtotal:6.2f}")
+            print(f"   {'TOTAL':<22}            ${order['total']:6.2f}")
+
     def displayMsg(self, msg):
         print(f"\n[System]: {msg}")

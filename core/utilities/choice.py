@@ -9,7 +9,7 @@ class Choice:
         Utility Class to use fuzzy logic to return a match
         for a query from a set of choices
     '''
-    __confidenceLevel = 70
+    __confidenceLevel = 80
 
     @staticmethod
     def getChoice(request:str=None, options: list=None):

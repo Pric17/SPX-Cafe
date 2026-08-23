@@ -39,26 +39,26 @@ class MainOptions(Options):
         # Options, prompt, synonyms, Message, State
         "menu": {
             "prompt"    : "View the Menu" # display
-            , "syn"       : {"meals", "food", "menu"} # input synonyms
-            , "message" : "Thank you for choosing to see the Menu" 
+            , "syn"       : {"meals", "menu", "view menu"} # input synonyms
+            , "message" : "Thank you for choosing to see the Menu"
             ,"state"    : 3
         }
         , "history": {
-            "prompt"    : "View Previous Orders" # display
+            "prompt"    : "View Order History" # display
             ,"syn"       : {"previous", "history", "past"} # input synonyms
             , "message" : "You wish to see your previous orders"
             ,"state"    : 4                
         }
         , "order": {
             "prompt"    : "Order Food" # display
-            ,"syn"       : {"order", "add", "buy"} # input synonyms
+            ,"syn"       : {"order", "order food", "food", "add", "buy"} # input synonyms
             , "message" : "You wish to order food"
             ,"state"    : 5
         }
         , "exit": {
             "prompt"    : "Exit System" # display
             ,"syn"       : {"goodbye", "exit", "logout", "leave", "finish"}, # input synonyms
-            "message": "" # state 9 handles the farewell (so it can thank the customer by name)
+            "message": ""
             ,"state":  9
         }
     }
@@ -85,19 +85,19 @@ class OrderOptions(Options):
         , "basket": {
             "prompt"    : "View Basket" # display
             ,"syn"       : {"basket", "cart", "view"} # input synonyms
-            , "message" : "" # state prints the basket
+            , "message" : ""
             ,"state"    : 54
         }
         , "finish": {
             "prompt"    : "Finish Order" # display
-            ,"syn"       : {"finish", "end", "complete", "checkout"} # input synonyms
-            , "message" : "" # state handles checkout messaging
+            ,"syn"       : {"finish", "end", "complete", "checkout", "done"} # input synonyms
+            , "message" : ""
             ,"state"    : 52
         }
         , "abandon": {
             "prompt"    : "Abandon Order" # display
             ,"syn"       : {"abandon", "cancel", "quit", "leave"} # input synonyms
-            , "message" : "" # state confirms abandonment
+            , "message" : ""
             ,"state"    : 55
         }
     }

@@ -7,7 +7,6 @@ class CustomerFacade:
         self.controller = CustomerController()
         self.orderController = OrderController()
 
-    # --- Customer / login ---
     def findCustomer(self, username=None) -> Customer:
         return self.controller.findCustomer(username)
 
@@ -29,7 +28,6 @@ class CustomerFacade:
     def wrongPassword(self):
         self.controller.wrongPassword()
 
-    # --- Orders ---
     def startOrder(self, username):
         self.orderController.startOrder(username)
 
@@ -53,3 +51,6 @@ class CustomerFacade:
 
     def abandonOrder(self):
         self.orderController.abandonOrder()
+
+    def showOrderHistory(self, username):
+        self.orderController.showHistory(username)

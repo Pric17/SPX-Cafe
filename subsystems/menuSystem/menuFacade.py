@@ -15,6 +15,9 @@ class MenuFacade:
          menu = self.controller.findMenu(menuRequest)
          return menu
 
+    def getCourses(self, menu):
+        return self.controller.getCourses(menu)
+
     def showCourses(self, menu):
         self.controller.showCourses(menu)
 

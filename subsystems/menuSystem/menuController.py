@@ -31,7 +31,9 @@ class MenuController:
                     return menu
         return None
 
-    # --- Course navigation ---
+    def getCourses(self, menu):
+        return self.service.getCourses(menu)
+
     def showCourses(self, menu):
         courses = self.service.getCourses(menu)
         if not courses:
@@ -47,7 +49,6 @@ class MenuController:
                     return course
         return None
 
-    # --- Meal navigation ---
     def showMeals(self, course):
         meals = self.service.getMeals(course)
         if not meals:
